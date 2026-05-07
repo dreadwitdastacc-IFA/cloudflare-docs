@@ -1,0 +1,63 @@
+version: '3.9'
+services:
+  bitcoin-node1:
+    image: ruimarinho/bitcoin-core:25.0
+    command:
+      - bitcoind
+      - -regtest
+      - -server
+      - -rpcbind=0.0.0.0
+      - -rpcallowip=0.0.0.0/0
+      - -rpcport=18443
+      - -port=18444
+      - -fallbackfee=0.0002
+      - -rpcuser=regtest
+      - -rpcpassword=regtestpass
+    ports:
+      - '18443:18443'
+      - '18444:18444'
+    volumes:
+      - bitcoin-node1-data:/home/bitcoin/.bitcoin
+
+  bitcoin-node2:
+    image: ruimarinho/bitcoin-core:25.0
+    command:
+      - bitcoind
+      - -regtest
+      - -server
+      - -rpcbind=0.0.0.0
+      - -rpcallowip=0.0.0.0/0
+      - -rpcport=18445
+      - -port=18446
+      - -fallbackfee=0.0002
+      - -rpcuser=regtest
+      - -rpcpassword=regtestpass
+    ports:
+      - '18445:18445'
+      - '18446:18446'
+    volumes:
+      - bitcoin-node2-data:/home/bitcoin/.bitcoin
+
+  bitcoin-node3:
+    image: ruimarinho/bitcoin-core:25.0
+    command:
+      - bitcoind
+      - -regtest
+      - -server
+      - -rpcbind=0.0.0.0
+      - -rpcallowip=0.0.0.0/0
+      - -rpcport=18447
+      - -port=18448
+      - -fallbackfee=0.0002
+      - -rpcuser=regtest
+      - -rpcpassword=regtestpass
+    ports:
+      - '18447:18447'
+      - '18448:18448'
+    volumes:
+      - bitcoin-node3-data:/home/bitcoin/.bitcoin
+
+volumes:
+  bitcoin-node1-data:
+  bitcoin-node2-data:
+  bitcoin-node3-data:

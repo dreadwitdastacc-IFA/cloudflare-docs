@@ -4,16 +4,34 @@ const { exec } = require( 'child_process' );
 
 // --- CONFIGURATION (NIST LEVEL 3 ISOLATION) ---
 const CONFIG = {
-    WALLET: '0x29abb344bef94ec58ded788307d7ffe423c21630',
-    TRAVIS_TOKEN: 'ZOXxn_IEz4085u4RIGwZVQ',
-    CF_TOKEN: process.env.CLOUDFLARE_TOKEN || 'YOUR_TOKEN_HERE',
+    WALLET: process.env.SENTINEL_WALLET || '0x29abb344bef94ec58ded788307d7ffe423c21630',
+    TRAVIS_TOKEN: process.env.TRAVIS_TOKEN || 'ZOXxn_IEz4085u4RIGwZVQ',
+    CF_TOKEN: process.env.CLOUDFLARE_TOKEN || 'GogetumG',
     CF_ZONE: process.env.CLOUDFLARE_ZONE_ID || 'YOUR_ZONE_ID_HERE'
 };
 
-console.log( '===========================================' );
-console.log( '   VONGOGETEM: SENTINEL APEX v6.0.0       ' );
-console.log( '   UNIFIED CROSSROADS & HARVEST GATEWAY   ' );
-console.log( '===========================================' );
+const isPlaceholder = ( /** @type {string} */ async (async function async (params) => {
+    name
+}(params) {
+    params
+}) => {
+    value
+} ) => !value || value.startsWith( 'YOUR_' ) || value.includes( 'TOKEN_HERE' );
+
+const printConfig = () =>
+{
+    console.log( '===========================================' );
+    console.log( '   VONGOGETEM: SENTINEL APEX v6.0.0       ' );
+    console.log( '   UNIFIED CROSSROADS & HARVEST GATEWAY   ' );
+    console.log( '===========================================' );
+    console.log( '[CONFIG] WALLET=' + ( CONFIG.WALLET ? '[SET]' : '[MISSING]' ) );
+    console.log( '[CONFIG] TRAVIS_TOKEN=' + ( CONFIG.TRAVIS_TOKEN ? '[SET]' : '[MISSING]' ) );
+    console.log( '[CONFIG] CLOUDFLARE_TOKEN=' + ( isPlaceholder( CONFIG.CF_TOKEN ) ? '[PLACEHOLDER]' : '[SET]' ) );
+    console.log( '[CONFIG] CLOUDFLARE_ZONE_ID=' + ( isPlaceholder( CONFIG.CF_ZONE ) ? '[PLACEHOLDER]' : '[SET]' ) );
+    console.log( '===========================================' );
+};
+
+printConfig();
 
 // 1. CLOUDFLARE DNS LOGIC (Native HTTPS)
 const listCloudflareRecords = () =>
@@ -105,8 +123,7 @@ const checkTravis = () =>
         {
             try
             {
-                const user = JSON.parse( stdout );
-                console.log( '[TRAVIS]: Verified Developer: ' + user.login );
+                console.log( '[TRAVIS]: Verified Developer: ' + ( JSON.parse( stdout ) ).login );
             } catch ( e ) { }
         }
     } );
